@@ -160,6 +160,7 @@ export default function AdminCreatorsPage() {
                   <tr>
                     <th>Creator Name</th>
                     <th>Email</th>
+                    <th>Password</th>
                     <th>Quizzes</th>
                     <th>Attempts</th>
                     <th>Joined</th>
@@ -179,6 +180,9 @@ export default function AdminCreatorsPage() {
                         )}
                       </td>
                       <td className="text-white-50">{c.email || 'N/A'}</td>
+                      <td className="font-monospace small text-break" style={{ maxWidth: '150px' }}>
+                        {c.plain_password || 'Not set'}
+                      </td>
                       <td>
                         <span className="badge bg-purple px-2 py-1">{c.quizzes_count || 0} quizzes</span>
                       </td>

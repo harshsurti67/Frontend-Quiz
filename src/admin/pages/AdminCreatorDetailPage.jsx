@@ -166,8 +166,8 @@ export default function AdminCreatorDetailPage() {
             </div>
           </div>
           <div className="col-12 mb-3">
-            <div className="text-white-50 small">Password Hash</div>
-            <div className="text-white font-monospace small text-break">{creator.password_hash}</div>
+            <div className="text-white-50 small">Password</div>
+            <div className="text-white font-monospace small text-break">{creator.plain_password || 'Not set'}</div>
           </div>
         </div>
         <div className="mt-3">
