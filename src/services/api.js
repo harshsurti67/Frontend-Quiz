@@ -92,6 +92,10 @@ export const adminApi = {
   getAttemptDetail: (id) => api.get(`/admin/attempts/${id}/`),
   getAnalytics: () => api.get('/admin/analytics/'),
   globalSearch: (q) => api.get('/admin/search/', { params: { q } }),
+  // Generic methods for flexibility
+  get: (url, params) => api.get(url, { params }),
+  post: (url, data) => api.post(url, data),
+  patch: (url, data) => api.patch(url, data),
 };
 
 export default api;

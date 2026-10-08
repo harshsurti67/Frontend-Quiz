@@ -15,6 +15,15 @@ import AdminLayout from './admin/AdminLayout';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import AdminDashboardPage from './admin/pages/AdminDashboardPage';
 import AdminCreatorsPage from './admin/pages/AdminCreatorsPage';
+import AdminCreatorDetailPage from './admin/pages/AdminCreatorDetailPage';
+import AdminQuizzesPage from './admin/pages/AdminQuizzesPage';
+import AdminQuizDetailPage from './admin/pages/AdminQuizDetailPage';
+import AdminQuestionsPage from './admin/pages/AdminQuestionsPage';
+import AdminCategoriesPage from './admin/pages/AdminCategoriesPage';
+import AdminAttemptsPage from './admin/pages/AdminAttemptsPage';
+import AdminAttemptDetailPage from './admin/pages/AdminAttemptDetailPage';
+import AdminAnalyticsPage from './admin/pages/AdminAnalyticsPage';
+import AdminSettingsPage from './admin/pages/AdminSettingsPage';
 
 function AppContent() {
   const location = useLocation();
@@ -38,6 +47,15 @@ function AppContent() {
         <Route path="/admin/*" element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
           <Route path="creators" element={<AdminCreatorsPage />} />
+          <Route path="creators/:id" element={<AdminCreatorDetailPage />} />
+          <Route path="quizzes" element={<AdminQuizzesPage />} />
+          <Route path="quizzes/:id" element={<AdminQuizDetailPage />} />
+          <Route path="questions" element={<AdminQuestionsPage />} />
+          <Route path="categories" element={<AdminCategoriesPage />} />
+          <Route path="attempts" element={<AdminAttemptsPage />} />
+          <Route path="attempts/:id" element={<AdminAttemptDetailPage />} />
+          <Route path="analytics" element={<AdminAnalyticsPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
         </Route>
       </Routes>
     );
