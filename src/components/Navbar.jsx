@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { getAuthUser, logoutUser } from '../utils/auth';
+import ProfileDropdown from './ProfileDropdown';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -22,8 +23,9 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="d-flex align-items-center gap-2 gap-md-3 flex-wrap">
-          <Link to="/" className="d-none d-md-inline-block text-white-50 text-decoration-none fw-semibold">
+        {/* Desktop Navigation */}
+        <div className="d-flex align-items-center gap-2 gap-md-3 flex-wrap d-none d-md-flex">
+          <Link to="/" className="text-white-50 text-decoration-none fw-semibold">
             Home
           </Link>
 
@@ -51,6 +53,27 @@ export default function Navbar() {
             <i className="bi bi-plus-circle-fill"></i>
             <span>Create Quiz</span>
           </Link>
+        </div>
+
+        {/* Mobile Navigation - Single Profile Icon */}
+        <div className="d-flex d-md-none">
+          {user ? (
+            <ProfileDropdown />
+          ) : (
+            <Link
+              to="/login"
+              className="btn btn-link text-white p-0 d-flex align-items-center justify-content-center"
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+              }}
+            >
+              <i className="bi bi-person-fill fs-5"></i>
+            </Link>
+          )}
         </div>
       </Container>
     </nav>

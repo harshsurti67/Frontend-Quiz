@@ -566,6 +566,11 @@ html, body, #root {
   }
 }
 
+/* Hover effect for dropdown menu items */
+.hover-bg-glass:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 /* Mobile glass panel adjustments */
 @media (max-width: 768px) {
   .glass-panel {
