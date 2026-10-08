@@ -64,7 +64,7 @@ function AppContent() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      <main className="flex-grow-1">
+      <main className="flex-grow-1 pt-3 pt-md-4">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />

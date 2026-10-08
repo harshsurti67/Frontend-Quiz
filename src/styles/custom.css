@@ -558,6 +558,12 @@ html, body, #root {
   .navbar-brand {
     font-size: 1rem;
   }
+
+  /* Ensure main content is not hidden behind sticky navbar */
+  .container,
+  .container-fluid {
+    padding-top: 8px;
+  }
 }
 
 /* Mobile glass panel adjustments */

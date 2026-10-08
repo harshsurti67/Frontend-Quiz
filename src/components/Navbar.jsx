@@ -22,7 +22,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="d-flex align-items-center gap-3">
+        <div className="d-flex align-items-center gap-2 gap-md-3 flex-wrap">
           <Link to="/" className="d-none d-md-inline-block text-white-50 text-decoration-none fw-semibold">
             Home
           </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link to="/login" className="d-none d-sm-inline-block text-white-50 text-decoration-none fw-semibold">
+            <Link to="/login" className="text-white-50 text-decoration-none fw-semibold">
               Creator Login
             </Link>
           )}
