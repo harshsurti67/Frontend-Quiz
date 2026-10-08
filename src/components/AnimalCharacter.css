@@ -1,0 +1,40 @@
+.animal-character {
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.animal-character:hover {
+  transform: scale(1.05);
+}
+
+/* Animation for result page */
+@keyframes characterEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animal-character.animate-entrance {
+  animation: characterEntrance 0.5s ease-out forwards;
+}
+
+/* Mobile responsive sizing */
+@media (max-width: 768px) {
+  .animal-character {
+    max-width: 140px;
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .animal-character {
+    max-width: 120px;
+    max-height: 128px;
+  }
+}

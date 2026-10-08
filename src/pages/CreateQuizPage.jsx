@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { quizApi } from '../services/api';
-import AnimatedAvatar, { AVATAR_LIST } from '../components/AnimatedAvatar';
+import AnimalCharacter from '../components/AnimalCharacter';
 import QuestionBuilder from '../components/QuestionBuilder';
 import QuestionPreviewList from '../components/QuestionPreviewList';
 import ShareButton from '../components/ShareButton';
@@ -24,7 +24,7 @@ export default function CreateQuizPage() {
   const [creatorName, setCreatorName] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [avatarId, setAvatarId] = useState('cool_boy');
+  const [avatarId, setAvatarId] = useState('cat');
 
   const [questions, setQuestions] = useState(INITIAL_10_QUESTIONS);
 
@@ -115,7 +115,7 @@ export default function CreateQuizPage() {
           <Col xs={12} sm={10} md={8} lg={6}>
             <div className="glass-panel p-4 p-md-5 text-center neon-glow">
               <div className="mb-3">
-                <AnimatedAvatar avatarId={publishedQuiz.avatar_id} size="xl" state="celebrating" />
+                <AnimalCharacter animal={publishedQuiz.avatar_id} expression="excited" size="xl" />
               </div>
               <h1 className="fs-2 fw-bold text-white mb-2 font-heading">
                 🎉 Your Private Quiz is Ready!
@@ -222,31 +222,25 @@ export default function CreateQuizPage() {
                   />
                 </div>
 
-                {/* Avatar Mascot Selector */}
+                {/* Animal Character Selector */}
                 <div className="mb-4">
                   <label className="form-label text-white fw-bold mb-2">
-                    Choose Your Animated Avatar Mascot <span className="text-danger">*</span>
+                    Choose Your Character <span className="text-danger">*</span>
                   </label>
                   <div className="d-flex flex-wrap justify-content-center gap-3 p-3 glass-panel bg-black bg-opacity-30">
-                    {AVATAR_LIST.map((avatar) => (
+                    {['cat', 'dog', 'panda', 'rabbit', 'fox', 'bear', 'lion', 'koala'].map((animal) => (
                       <div
-                        key={avatar.id}
+                        key={animal}
                         className="text-center p-2 rounded-3 cursor-pointer"
                         style={{
-                          background: avatarId === avatar.id ? 'rgba(139, 92, 246, 0.25)' : 'transparent',
-                          border: avatarId === avatar.id ? '1px solid #ec4899' : '1px solid transparent',
+                          background: avatarId === animal ? 'rgba(139, 92, 246, 0.25)' : 'transparent',
+                          border: avatarId === animal ? '1px solid #ec4899' : '1px solid transparent',
                         }}
-                        onClick={() => setAvatarId(avatar.id)}
+                        onClick={() => setAvatarId(animal)}
                       >
-                        <AnimatedAvatar
-                          avatarId={avatar.id}
-                          size="md"
-                          interactive={true}
-                          selected={avatarId === avatar.id}
-                          onSelect={(id) => setAvatarId(id)}
-                        />
-                        <div className="text-white small fw-bold mt-2" style={{ fontSize: '0.8rem' }}>
-                          {avatar.name}
+                        <AnimalCharacter animal={animal} expression="idle" size="md" />
+                        <div className="text-white small fw-bold mt-2" style={{ fontSize: '0.8rem', textTransform: 'capitalize' }}>
+                          {animal}
                         </div>
                       </div>
                     ))}

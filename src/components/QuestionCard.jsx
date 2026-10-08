@@ -10,6 +10,7 @@ export default function QuestionCard({
   onNext,
   isLastQuestion = false,
   isSubmitting = false,
+  onExpressionChange,
 }) {
   if (!question) return null;
 
@@ -36,7 +37,12 @@ export default function QuestionCard({
             option={opt}
             index={idx}
             isSelected={selectedOptionId === opt.id}
-            onSelect={onSelectOption}
+            onSelect={(optionId) => {
+              onSelectOption(optionId);
+              if (onExpressionChange) {
+                onExpressionChange('thinking');
+              }
+            }}
             disabled={isSubmitting}
           />
         ))}

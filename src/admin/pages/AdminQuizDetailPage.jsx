@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { adminApi } from '../../services/api';
+import AnimalCharacter from '../../components/AnimalCharacter';
 
 export default function AdminQuizDetailPage() {
   const { id } = useParams();
@@ -141,6 +142,13 @@ export default function AdminQuizDetailPage() {
             <div className="text-white-50 small">Creator</div>
             <div className="text-white">{quiz.creator_name}</div>
             <div className="text-white-50 small">{quiz.creator_email}</div>
+          </div>
+          <div className="col-md-6 mb-3">
+            <div className="text-white-50 small">Character</div>
+            <div className="d-flex align-items-center gap-2">
+              {quiz.avatar_id && <AnimalCharacter animal={quiz.avatar_id} expression="idle" size="sm" />}
+              <div className="text-white" style={{ textTransform: 'capitalize' }}>{quiz.avatar_id || 'cat'}</div>
+            </div>
           </div>
           <div className="col-md-6 mb-3">
             <div className="text-white-50 small">Public ID</div>

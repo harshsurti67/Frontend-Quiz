@@ -1,23 +1,9 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import AnimatedAvatar from '../components/AnimatedAvatar';
-import { DEFAULT_QUIZ_ID } from '../data/constants';
 
 export default function LandingPage() {
-  const navigate = useNavigate();
-  const [quizInput, setQuizInput] = useState('');
-
-  const handleOpenQuizLink = (e) => {
-    e.preventDefault();
-    if (!quizInput.trim()) return;
-
-    let targetId = quizInput.trim();
-    if (targetId.includes('/q/')) {
-      targetId = targetId.split('/q/')[1].split('/')[0].split('?')[0];
-    }
-    navigate(`/q/${targetId}`);
-  };
 
   return (
     <div>
@@ -39,7 +25,7 @@ export default function LandingPage() {
                 Create a 10-question quiz about yourself. Send your private link to friends on WhatsApp. Find out who really knows you best!
               </p>
 
-              <div className="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-5">
+              <div className="d-flex justify-content-center mb-5">
                 <Link
                   to="/create"
                   className="btn-social-primary py-3 px-4 fs-5"
@@ -48,40 +34,6 @@ export default function LandingPage() {
                   <i className="bi bi-plus-circle-fill"></i>
                   <span>Create Your Quiz</span>
                 </Link>
-
-                <Link
-                  to={`/q/${DEFAULT_QUIZ_ID}`}
-                  className="btn-social-secondary py-3 px-4 fs-5"
-                  id="hero-take-demo-btn"
-                >
-                  <i className="bi bi-play-circle-fill"></i>
-                  <span>Try Prem's Quiz Demo</span>
-                </Link>
-              </div>
-
-              {/* Direct Quiz Link Opener */}
-              <div className="glass-panel p-4 max-w-md mx-auto text-start mb-5 bg-black bg-opacity-40">
-                <label className="form-label text-white fw-bold small text-uppercase mb-2" style={{ letterSpacing: '0.05em' }}>
-                  🔗 Received a Quiz Link from a Friend?
-                </label>
-                <Form onSubmit={handleOpenQuizLink} className="d-flex gap-2">
-                  <input
-                    type="text"
-                    className="social-input py-2"
-                    placeholder="Paste link or enter Quiz ID (e.g. WQme30Q)"
-                    value={quizInput}
-                    onChange={(e) => setQuizInput(e.target.value)}
-                    id="landing-link-input"
-                  />
-                  <button
-                    type="submit"
-                    className="btn-social-primary py-2 px-4 flex-shrink-0"
-                    disabled={!quizInput.trim()}
-                  >
-                    <span>Open</span>
-                    <i className="bi bi-arrow-right"></i>
-                  </button>
-                </Form>
               </div>
 
               {/* Live Platform Highlights */}

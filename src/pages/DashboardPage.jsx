@@ -3,6 +3,7 @@ import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { quizApi } from '../services/api';
 import ShareButton from '../components/ShareButton';
+import AnimalCharacter from '../components/AnimalCharacter';
 import LoadingScreen from '../components/LoadingScreen';
 import ErrorMessage from '../components/ErrorMessage';
 import { getAuthUser, getAuthToken, logoutUser } from '../utils/auth';
@@ -160,17 +161,22 @@ export default function DashboardPage() {
     <Container className="py-4 py-md-5">
       {/* Top Dashboard Header */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
-        <div>
-          <span className="glass-pill mb-2">📊 Creator Dashboard</span>
-          <h1 className="fs-2 fw-bold text-white mb-1 font-heading">
-            {quiz?.title || 'My Private Quizzes'}
-          </h1>
-          <p className="text-white-50 small mb-0">
-            Logged in as <strong>{user?.name || user?.username || 'Creator'}</strong> • Status:{' '}
-            <span className={`badge ${quiz?.status === 'published' ? 'bg-success' : 'bg-warning text-dark'} rounded-pill ms-1`}>
-              {quiz?.status === 'published' ? '● Published' : 'Draft'}
-            </span>
-          </p>
+        <div className="d-flex align-items-center gap-3">
+          {quiz?.avatar_id && (
+            <AnimalCharacter animal={quiz.avatar_id} expression="idle" size="md" />
+          )}
+          <div>
+            <span className="glass-pill mb-2">📊 Creator Dashboard</span>
+            <h1 className="fs-2 fw-bold text-white mb-1 font-heading">
+              {quiz?.title || 'My Private Quizzes'}
+            </h1>
+            <p className="text-white-50 small mb-0">
+              Logged in as <strong>{user?.name || user?.username || 'Creator'}</strong> • Status:{' '}
+              <span className={`badge ${quiz?.status === 'published' ? 'bg-success' : 'bg-warning text-dark'} rounded-pill ms-1`}>
+                {quiz?.status === 'published' ? '● Published' : 'Draft'}
+              </span>
+            </p>
+          </div>
         </div>
 
         <div className="d-flex gap-2 flex-wrap">

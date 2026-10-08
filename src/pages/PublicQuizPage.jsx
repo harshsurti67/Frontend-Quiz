@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { quizApi } from '../services/api';
-import AnimatedAvatar from '../components/AnimatedAvatar';
+import AnimalCharacter from '../components/AnimalCharacter';
 import LoadingScreen from '../components/LoadingScreen';
 import ErrorMessage from '../components/ErrorMessage';
 
@@ -74,16 +74,16 @@ export default function PublicQuizPage() {
   }
 
   const creatorName = quiz?.creator_name || 'Friend';
-  const avatarId = quiz?.avatar_id || 'cool_boy';
+  const avatarId = quiz?.avatar_id || 'cat';
 
   return (
     <Container className="py-4 py-md-5">
       <Row className="justify-content-center">
         <Col xs={12} sm={10} md={9} lg={7}>
           <div className="glass-panel p-3 p-sm-4 p-md-5 text-center neon-glow">
-            {/* Animated Avatar Mascot */}
+            {/* Animal Character */}
             <div className="mb-3">
-              <AnimatedAvatar avatarId={avatarId} size="xl" state="waving" />
+              <AnimalCharacter animal={avatarId} expression="idle" size="xl" />
             </div>
 
             {/* Creator & Quiz Title */}

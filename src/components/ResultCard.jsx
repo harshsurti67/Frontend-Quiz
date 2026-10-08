@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
-import AnimatedAvatar from './AnimatedAvatar';
+import AnimalCharacter from './AnimalCharacter';
 import { SCORE_BADGES } from '../data/constants';
 
 export default function ResultCard({
@@ -12,7 +12,7 @@ export default function ResultCard({
   const {
     participant_name = 'Friend',
     creator_name = 'Prem',
-    avatar_id = 'cool_boy',
+    avatar_id = 'cat',
     score = 8,
     total = 10,
     percentage = 80,
@@ -42,9 +42,9 @@ export default function ResultCard({
 
   return (
     <div className="glass-panel p-4 p-md-5 text-center neon-glow">
-      {/* Celebrating Animated Mascot Avatar */}
+      {/* Celebrating Animal Character */}
       <div className="mb-3">
-        <AnimatedAvatar avatarId={avatar_id} size="xl" state="celebrating" />
+        <AnimalCharacter animal={avatar_id} expression="excited" size="xl" className="animate-entrance" />
       </div>
 
       <div className="mb-3">

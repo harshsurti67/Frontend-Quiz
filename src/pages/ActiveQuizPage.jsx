@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { quizApi } from '../services/api';
 import ProgressBar from '../components/ProgressBar';
 import QuestionCard from '../components/QuestionCard';
+import AnimalCharacter from '../components/AnimalCharacter';
 import LoadingScreen from '../components/LoadingScreen';
 import ErrorMessage from '../components/ErrorMessage';
 
@@ -15,6 +16,7 @@ export default function ActiveQuizPage() {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({}); // { [questionId]: optionId }
+  const [expression, setExpression] = useState('thinking');
 
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -55,6 +57,7 @@ export default function ActiveQuizPage() {
 
         setSelectedAnswers(existingAnswers);
         setCurrentIndex(firstUnansweredIdx);
+        setExpression('thinking');
       } catch (err) {
         setError(err.message || 'Unable to load quiz session.');
       } finally {
@@ -96,6 +99,7 @@ export default function ActiveQuizPage() {
 
     if (!isLastQuestion) {
       setCurrentIndex((prev) => prev + 1);
+      setExpression('thinking');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Finalize and submit quiz
@@ -134,10 +138,17 @@ export default function ActiveQuizPage() {
     );
   }
 
+  const avatarId = attempt?.quiz?.avatar_id || 'cat';
+
   return (
     <Container className="py-3 py-md-5">
       <Row className="justify-content-center">
         <Col xs={12} sm={10} md={9} lg={7}>
+          {/* Animal Character with expression */}
+          <div className="text-center mb-3">
+            <AnimalCharacter animal={avatarId} expression={expression} size="lg" />
+          </div>
+
           {/* Progress Bar (RULE 1: Exactly 10 questions) */}
           <ProgressBar
             current={currentIndex + 1}
@@ -156,6 +167,7 @@ export default function ActiveQuizPage() {
             onNext={handleNext}
             isLastQuestion={isLastQuestion}
             isSubmitting={submitting}
+            onExpressionChange={setExpression}
           />
         </Col>
       </Row>
