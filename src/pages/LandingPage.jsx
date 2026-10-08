@@ -1,0 +1,162 @@
+import React, { useState } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import AnimatedAvatar from '../components/AnimatedAvatar';
+import { DEFAULT_QUIZ_ID } from '../data/constants';
+
+export default function LandingPage() {
+  const navigate = useNavigate();
+  const [quizInput, setQuizInput] = useState('');
+
+  const handleOpenQuizLink = (e) => {
+    e.preventDefault();
+    if (!quizInput.trim()) return;
+
+    let targetId = quizInput.trim();
+    if (targetId.includes('/q/')) {
+      targetId = targetId.split('/q/')[1].split('/')[0].split('?')[0];
+    }
+    navigate(`/q/${targetId}`);
+  };
+
+  return (
+    <div>
+      {/* Hero Section */}
+      <section className="py-5 text-center position-relative">
+        <Container className="py-md-4">
+          <Row className="justify-content-center">
+            <Col lg={9} xl={8}>
+              {/* Animated Mascot Hero Header */}
+              <div className="mb-4">
+                <AnimatedAvatar avatarId="cool_boy" size="xl" state="waving" />
+              </div>
+
+              <h1 className="display-4 display-md-3 fw-bold text-white mb-3 font-heading lh-sm">
+                How well do your friends really know you? <span className="gradient-text">👀</span>
+              </h1>
+
+              <p className="fs-5 text-white-50 mb-4 px-md-4">
+                Create a 10-question quiz about yourself. Send your private link to friends on WhatsApp. Find out who really knows you best!
+              </p>
+
+              <div className="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-5">
+                <Link
+                  to="/create"
+                  className="btn-social-primary py-3 px-4 fs-5"
+                  id="hero-create-quiz-btn"
+                >
+                  <i className="bi bi-plus-circle-fill"></i>
+                  <span>Create Your Quiz</span>
+                </Link>
+
+                <Link
+                  to={`/q/${DEFAULT_QUIZ_ID}`}
+                  className="btn-social-secondary py-3 px-4 fs-5"
+                  id="hero-take-demo-btn"
+                >
+                  <i className="bi bi-play-circle-fill"></i>
+                  <span>Try Prem's Quiz Demo</span>
+                </Link>
+              </div>
+
+              {/* Direct Quiz Link Opener */}
+              <div className="glass-panel p-4 max-w-md mx-auto text-start mb-5 bg-black bg-opacity-40">
+                <label className="form-label text-white fw-bold small text-uppercase mb-2" style={{ letterSpacing: '0.05em' }}>
+                  🔗 Received a Quiz Link from a Friend?
+                </label>
+                <Form onSubmit={handleOpenQuizLink} className="d-flex gap-2">
+                  <input
+                    type="text"
+                    className="social-input py-2"
+                    placeholder="Paste link or enter Quiz ID (e.g. WQme30Q)"
+                    value={quizInput}
+                    onChange={(e) => setQuizInput(e.target.value)}
+                    id="landing-link-input"
+                  />
+                  <button
+                    type="submit"
+                    className="btn-social-primary py-2 px-4 flex-shrink-0"
+                    disabled={!quizInput.trim()}
+                  >
+                    <span>Open</span>
+                    <i className="bi bi-arrow-right"></i>
+                  </button>
+                </Form>
+              </div>
+
+              {/* Live Platform Highlights */}
+              <Row className="g-3 justify-content-center">
+                <Col xs={4} md={3}>
+                  <div className="stat-box">
+                    <div className="stat-value gradient-text">10</div>
+                    <div className="stat-label">Questions/Quiz</div>
+                  </div>
+                </Col>
+                <Col xs={4} md={3}>
+                  <div className="stat-box">
+                    <div className="stat-value gradient-text-cyan">4</div>
+                    <div className="stat-label">Options/Q</div>
+                  </div>
+                </Col>
+                <Col xs={4} md={3}>
+                  <div className="stat-box">
+                    <div className="stat-value gradient-text-gold">100%</div>
+                    <div className="stat-label">Private & Isolated</div>
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      {/* How It Works (Person-to-Person Flow) */}
+      <section className="py-5">
+        <Container>
+          <div className="text-center mb-5">
+            <h2 className="fs-2 fw-bold text-white mb-2 font-heading">
+              How Person-to-Person <span className="gradient-text">Quizzes Work</span> 🚀
+            </h2>
+            <p className="text-white-50">
+              Each quiz is privately owned by its creator. Responses remain tied strictly to that creator's quiz!
+            </p>
+          </div>
+
+          <Row className="g-4">
+            <Col md={4}>
+              <div className="glass-panel p-4 h-100 text-center">
+                <div className="mb-3">
+                  <AnimatedAvatar avatarId="cool_boy" size="md" state="idle" />
+                </div>
+                <h3 className="fs-5 fw-bold text-white mb-2">1. Prem Creates His Quiz</h3>
+                <p className="text-white-50 small mb-0">
+                  Prem picks his avatar, configures 10 questions about himself, previews them, and publishes his private quiz.
+                </p>
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className="glass-panel p-4 h-100 text-center">
+                <div className="fs-1 mb-3">📲</div>
+                <h3 className="fs-5 fw-bold text-white mb-2">2. Sends Link to Harsh</h3>
+                <p className="text-white-50 small mb-0">
+                  Prem copies his private link (e.g. <code>/q/WQme30Q</code>) and sends it directly to Harsh on WhatsApp.
+                </p>
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className="glass-panel p-4 h-100 text-center">
+                <div className="mb-3">
+                  <AnimatedAvatar avatarId="cute_boy" size="md" state="celebrating" />
+                </div>
+                <h3 className="fs-5 fw-bold text-white mb-2">3. Harsh Scores 8/10</h3>
+                <p className="text-white-50 small mb-0">
+                  Harsh answers Prem's 10 questions. Harsh gets 8/10, stored under Prem's Quiz! Harsh can then make his own separate quiz.
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+    </div>
+  );
+}
