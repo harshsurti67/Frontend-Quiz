@@ -693,6 +693,7 @@ html, body, #root {
   .builder-option-row {
     flex-wrap: wrap;
     padding: 12px;
+    gap: 8px;
   }
 
   .builder-option-badge {
@@ -704,11 +705,66 @@ html, body, #root {
   .builder-option-input {
     flex: 1;
     min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .builder-correct-radio-btn {
     padding: 8px 10px;
     font-size: 0.75rem;
+    white-space: normal;
+  }
+}
+
+/* Mobile question input */
+@media (max-width: 768px) {
+  .social-input {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    white-space: normal;
+    line-height: 1.4;
+  }
+}
+
+/* Very small mobile screens - question input */
+@media (max-width: 480px) {
+  .social-input {
+    font-size: 0.95rem;
+    padding: 12px 14px;
+  }
+}
+
+/* Mobile glass panel for question builder */
+@media (max-width: 768px) {
+  .glass-panel {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+  .builder-option-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+
+  .builder-option-badge {
+    width: 100%;
+    height: 36px;
+    margin-bottom: 8px;
+  }
+
+  .builder-option-input {
+    margin-bottom: 8px;
+  }
+
+  .builder-correct-radio-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
   }
 }
 
