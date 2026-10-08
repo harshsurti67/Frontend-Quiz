@@ -8,15 +8,15 @@ export function getQuizPublicUrl(publicId) {
 }
 
 export function shareToWhatsApp({ creatorName, score, total = 10, publicId }) {
-  const quizUrl = getQuizPublicUrl(publicId);
-  const text = `I scored ${score}/${total} on How Well Do You Know ${creatorName || 'Me'}? 😎\nCan you beat my score? 🔥\n\nTake the quiz here:\n${quizUrl}`;
+  const quizUrl = `https://knowme-quiz-harsh.vercel.app/q/${publicId}`;
+  const text = `🎯 I scored ${score}/${total} on How Well Do You Know ${creatorName || 'Me'}? 😎\nCan you beat my score? 🔥\n\nTake the quiz here:\n${quizUrl}\n\n✨ Think you know your friends really well?\n\nCreate your own KnowMe? quiz, share it with your friends, and see who really knows you!\n\n👤 Create your own:\nhttps://knowme-quiz-harsh.vercel.app\n\n📊 Sign up, create your quiz, and check your Dashboard to see who answered and how well they know you!`;
   const encodedText = encodeURIComponent(text);
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
   window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 }
 
 export function shareQuizInviteToWhatsApp({ creatorName, quizTitle, publicId }) {
-  const quizUrl = getQuizPublicUrl(publicId);
+  const quizUrl = `https://knowme-quiz-harsh.vercel.app/q/${publicId}`;
   const text = `👀 How well do you really know ${creatorName || 'me'}?\nTake my 10-question quiz: "${quizTitle || 'How Well Do You Know Me?'}" and let's find out!\n\nPlay now:\n${quizUrl}`;
   const encodedText = encodeURIComponent(text);
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;

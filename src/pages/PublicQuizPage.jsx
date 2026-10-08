@@ -35,6 +35,42 @@ export default function PublicQuizPage() {
     }
   }, [publicId]);
 
+  // Update meta tags for social sharing when quiz data loads
+  useEffect(() => {
+    if (quiz) {
+      const creatorName = quiz.creator_name || 'Your Friend';
+      const quizTitle = quiz.title || 'How Well Do You Know Me?';
+      const fullUrl = `https://knowme-quiz-harsh.vercel.app/q/${publicId}`;
+
+      // Update document title
+      document.title = `How Well Do You Know ${creatorName}? 🧠 - KnowMe?`;
+
+      // Update or create meta tags
+      const updateMetaTag = (property, content) => {
+        let tag = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute(property.includes(':') ? 'property' : 'name', property);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      };
+
+      updateMetaTag('og:title', `How Well Do You Know ${creatorName}? 🧠`);
+      updateMetaTag('og:description', `Think you know ${creatorName} really well? Take this 10-question quiz and find out!`);
+      updateMetaTag('og:url', fullUrl);
+
+      updateMetaTag('twitter:title', `How Well Do You Know ${creatorName}? 🧠`);
+      updateMetaTag('twitter:description', `Think you know ${creatorName} really well? Take this 10-question quiz and find out!`);
+      updateMetaTag('twitter:url', fullUrl);
+
+      // Cleanup on unmount
+      return () => {
+        document.title = 'How Well Do You Know Me? 👀 | Social Friendship Quiz';
+      };
+    }
+  }, [quiz, publicId]);
+
   const handleStartQuiz = async (e) => {
     e.preventDefault();
     setError('');
