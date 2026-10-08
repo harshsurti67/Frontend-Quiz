@@ -81,6 +81,7 @@ export const adminApi = {
   getCreators: (params) => api.get('/admin/creators/', { params }),
   getCreatorDetail: (id) => api.get(`/admin/creators/${id}/`),
   toggleCreatorStatus: (id, is_active) => api.patch(`/admin/creators/${id}/status/`, { is_active }),
+  resetCreatorPassword: (id, new_password) => api.post(`/admin/creators/${id}/reset-password/`, { new_password }),
   getQuizzes: (params) => api.get('/admin/quizzes/', { params }),
   getQuizDetail: (id) => api.get(`/admin/quizzes/${id}/`),
   toggleQuizStatus: (id, status) => api.patch(`/admin/quizzes/${id}/status/`, { status }),

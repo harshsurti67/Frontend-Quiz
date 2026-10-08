@@ -7,6 +7,9 @@ export default function AdminCreatorDetailPage() {
   const [creator, setCreator] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [resetError, setResetError] = useState('');
 
   useEffect(() => {
     const fetchCreator = async () => {
@@ -32,6 +35,27 @@ export default function AdminCreatorDetailPage() {
     } catch (err) {
       console.error('Failed to toggle creator status:', err);
       alert('Failed to update creator status. Please try again.');
+    }
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setResetError('');
+    if (!newPassword || newPassword.length < 6) {
+      setResetError('Password must be at least 6 characters.');
+      return;
+    }
+    try {
+      await adminApi.resetCreatorPassword(id, newPassword);
+      setShowResetModal(false);
+      setNewPassword('');
+      alert('Password reset successfully!');
+      // Refresh creator data to get new password hash
+      const res = await adminApi.get(`/admin/creators/${id}/`);
+      setCreator(res.data);
+    } catch (err) {
+      console.error('Failed to reset password:', err);
+      setResetError(err.message || 'Failed to reset password. Please try again.');
     }
   };
 
@@ -141,6 +165,18 @@ export default function AdminCreatorDetailPage() {
               {!creator.is_staff && !creator.is_superuser && <span className="badge bg-secondary">Creator</span>}
             </div>
           </div>
+          <div className="col-12 mb-3">
+            <div className="text-white-50 small">Password Hash</div>
+            <div className="text-white font-monospace small text-break">{creator.password_hash}</div>
+          </div>
+        </div>
+        <div className="mt-3">
+          <button
+            className="btn btn-warning"
+            onClick={() => setShowResetModal(true)}
+          >
+            <i className="bi bi-key me-2"></i>Reset Password
+          </button>
         </div>
       </div>
 
@@ -193,6 +229,57 @@ export default function AdminCreatorDetailPage() {
           <div className="text-center text-white-50 py-3">No quizzes created by this user</div>
         )}
       </div>
+
+      {/* Reset Password Modal */}
+      {showResetModal && (
+        <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.8)' }}>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content glass-panel text-white">
+              <div className="modal-header border-secondary border-opacity-25">
+                <h5 className="modal-title">Reset Password for {creator?.username}</h5>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  onClick={() => { setShowResetModal(false); setNewPassword(''); setResetError(''); }}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <form onSubmit={handleResetPassword}>
+                  <div className="mb-3">
+                    <label className="form-label">New Password</label>
+                    <input
+                      type="password"
+                      className="form-control bg-transparent border-secondary border-opacity-25 text-white"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="Enter new password (min 6 characters)"
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  {resetError && (
+                    <div className="alert alert-danger border-danger bg-danger bg-opacity-10">
+                      {resetError}
+                    </div>
+                  )}
+                  <div className="d-flex justify-content-end gap-2">
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary"
+                      onClick={() => { setShowResetModal(false); setNewPassword(''); setResetError(''); }}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn btn-warning">
+                      <i className="bi bi-key me-2"></i>Reset Password
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
