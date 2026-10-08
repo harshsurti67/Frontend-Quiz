@@ -42,8 +42,8 @@ export default function AdminLayout() {
         {/* Main Content Area */}
         <div className="admin-main flex-grow-1 d-flex flex-column min-vh-100">
           {/* Top Admin Header */}
-          <header className="admin-header d-flex align-items-center justify-content-between px-3 px-md-4 py-3 sticky-top">
-            <div className="d-flex align-items-center gap-3">
+          <header className="admin-header d-flex align-items-center justify-content-between px-3 px-md-4 py-3 sticky-top flex-wrap gap-2">
+            <div className="d-flex align-items-center gap-3 flex-grow-1">
               <button
                 type="button"
                 className="btn btn-outline-secondary text-white border-secondary border-opacity-50 d-lg-none py-1 px-2"
@@ -54,7 +54,7 @@ export default function AdminLayout() {
               </button>
 
               {/* Global Search Bar */}
-              <div className="position-relative admin-search-bar" style={{ maxWidth: '380px', width: '100%' }}>
+              <div className="position-relative admin-search-bar flex-grow-1" style={{ maxWidth: '380px', width: '100%' }}>
                 <div className="input-group">
                   <span className="input-group-text bg-transparent border-secondary border-opacity-25 text-white-50">
                     <i className="bi bi-search"></i>

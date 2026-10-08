@@ -157,7 +157,7 @@ export default function DashboardPage() {
   const { quiz, total_attempts = 0, average_score = 0, highest_score = 0, lowest_score = 0, recent_attempts = [] } = activeQuizStats || {};
 
   return (
-    <Container className="py-5">
+    <Container className="py-4 py-md-5">
       {/* Top Dashboard Header */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
         <div>
@@ -173,7 +173,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="d-flex gap-2">
+        <div className="d-flex gap-2 flex-wrap">
           {quiz?.public_id && (
             <Link
               to={`/q/${quiz.public_id}`}
@@ -224,29 +224,29 @@ export default function DashboardPage() {
       {/* Metrics Row */}
       <Row className="g-3 mb-4">
         <Col xs={6} md={3}>
-          <div className="glass-panel p-4 text-center">
-            <div className="fs-1 mb-1">👥</div>
+          <div className="glass-panel p-3 p-md-4 text-center">
+            <div className="fs-2 fs-md-1 mb-1">👥</div>
             <div className="stat-value gradient-text">{total_attempts}</div>
             <div className="stat-label">Total Attempts</div>
           </div>
         </Col>
         <Col xs={6} md={3}>
-          <div className="glass-panel p-4 text-center">
-            <div className="fs-1 mb-1">🎯</div>
+          <div className="glass-panel p-3 p-md-4 text-center">
+            <div className="fs-2 fs-md-1 mb-1">🎯</div>
             <div className="stat-value gradient-text-cyan">{average_score ? `${average_score} / 10` : '—'}</div>
             <div className="stat-label">Average Score</div>
           </div>
         </Col>
         <Col xs={6} md={3}>
-          <div className="glass-panel p-4 text-center">
-            <div className="fs-1 mb-1">🏆</div>
+          <div className="glass-panel p-3 p-md-4 text-center">
+            <div className="fs-2 fs-md-1 mb-1">🏆</div>
             <div className="stat-value gradient-text-gold">{highest_score ? `${highest_score} / 10` : '—'}</div>
             <div className="stat-label">Highest Score</div>
           </div>
         </Col>
         <Col xs={6} md={3}>
-          <div className="glass-panel p-4 text-center">
-            <div className="fs-1 mb-1">📉</div>
+          <div className="glass-panel p-3 p-md-4 text-center">
+            <div className="fs-2 fs-md-1 mb-1">📉</div>
             <div className="stat-value text-white">{lowest_score ? `${lowest_score} / 10` : '—'}</div>
             <div className="stat-label">Lowest Score</div>
           </div>
@@ -255,9 +255,9 @@ export default function DashboardPage() {
 
       <Row className="g-4">
         {/* Friend Attempts Table */}
-        <Col lg={7}>
-          <div className="glass-panel p-4 h-100">
-            <div className="d-flex justify-content-between align-items-center mb-3">
+        <Col xs={12} lg={7}>
+          <div className="glass-panel p-3 p-md-4 h-100">
+            <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
               <h3 className="fs-5 fw-bold text-white mb-0 font-heading">
                 🏆 Friend Attempts & Scores
               </h3>
@@ -311,8 +311,8 @@ export default function DashboardPage() {
         </Col>
 
         {/* Share & Private Link Info */}
-        <Col lg={5}>
-          <div className="glass-panel p-4 h-100 d-flex flex-column justify-content-between">
+        <Col xs={12} lg={5}>
+          <div className="glass-panel p-3 p-md-4 h-100 d-flex flex-column justify-content-between">
             <div>
               <h3 className="fs-5 fw-bold text-white mb-3 font-heading">
                 📲 Share Private Link

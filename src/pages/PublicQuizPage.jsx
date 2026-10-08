@@ -77,10 +77,10 @@ export default function PublicQuizPage() {
   const avatarId = quiz?.avatar_id || 'cool_boy';
 
   return (
-    <Container className="py-5">
+    <Container className="py-4 py-md-5">
       <Row className="justify-content-center">
-        <Col md={9} lg={7}>
-          <div className="glass-panel p-4 p-md-5 text-center neon-glow">
+        <Col xs={12} sm={10} md={9} lg={7}>
+          <div className="glass-panel p-3 p-sm-4 p-md-5 text-center neon-glow">
             {/* Animated Avatar Mascot */}
             <div className="mb-3">
               <AnimatedAvatar avatarId={avatarId} size="xl" state="waving" />
@@ -91,7 +91,7 @@ export default function PublicQuizPage() {
               <span className="glass-pill fs-6 px-3 py-1 mb-2">
                 👤 {creatorName}'s Quiz
               </span>
-              <h1 className="fs-2 fw-bold text-white mb-2 font-heading">
+              <h1 className="fs-2 fs-sm-3 fw-bold text-white mb-2 font-heading">
                 How well do you know <span className="gradient-text">{creatorName}</span>? 👀
               </h1>
               <p className="text-white-50 small mb-0 px-md-4">
@@ -99,7 +99,7 @@ export default function PublicQuizPage() {
               </p>
             </div>
 
-            <div className="d-flex justify-content-center gap-2 mb-4">
+            <div className="d-flex justify-content-center gap-2 mb-4 flex-wrap">
               <span className="badge bg-secondary bg-opacity-25 text-white-50 border border-secondary border-opacity-25">
                 10 Questions
               </span>

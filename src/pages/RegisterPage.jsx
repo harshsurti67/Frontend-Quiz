@@ -41,9 +41,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <Container className="py-5">
+    <Container className="py-4 py-md-5">
       <Row className="justify-content-center">
-        <Col md={7} lg={5}>
+        <Col xs={12} sm={10} md={7} lg={5}>
           <div className="glass-panel p-4 p-md-5">
             <div className="text-center mb-4">
               <span className="glass-pill mb-2">✨ Register Creator Account</span>

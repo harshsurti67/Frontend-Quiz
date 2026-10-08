@@ -110,9 +110,9 @@ export default function CreateQuizPage() {
   // Step 4: Success Published Share Screen
   if (step === 4 && publishedQuiz) {
     return (
-      <Container className="py-5">
+      <Container className="py-4 py-md-5">
         <Row className="justify-content-center">
-          <Col md={8} lg={6}>
+          <Col xs={12} sm={10} md={8} lg={6}>
             <div className="glass-panel p-4 p-md-5 text-center neon-glow">
               <div className="mb-3">
                 <AnimatedAvatar avatarId={publishedQuiz.avatar_id} size="xl" state="celebrating" />
@@ -165,9 +165,9 @@ export default function CreateQuizPage() {
   }
 
   return (
-    <Container className="py-5">
+    <Container className="py-4 py-md-5">
       <Row className="justify-content-center">
-        <Col md={10} lg={8}>
+        <Col xs={12} sm={10} md={10} lg={8}>
           {error && (
             <Alert variant="danger" className="bg-danger bg-opacity-25 text-white border-danger mb-4">
               {error}

@@ -161,10 +161,10 @@ export default function QuestionBuilder({
   const allCompleted = questions.length === 10 && completedCount === 10;
 
   return (
-    <div className="glass-panel p-4 p-md-5">
+    <div className="glass-panel p-3 p-sm-4 p-md-5">
       {/* Header & Stepper (1 to 10) */}
       <div className="mb-4">
-        <div className="d-flex justify-content-between align-items-center mb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
           <span className="text-white-50 small fw-bold text-uppercase" style={{ letterSpacing: '0.06em' }}>
             QUESTION {currentIdx + 1} OF 10
           </span>
@@ -174,7 +174,7 @@ export default function QuestionBuilder({
         </div>
 
         {/* Stepper Buttons: 1 ✓  2 ✓  3 ✓ ... 10 */}
-        <div className="d-flex gap-2 overflow-x-auto pb-2">
+        <div className="d-flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
           {Array.from({ length: 10 }).map((_, i) => {
             const isCompleted = isQuestionComplete(i);
             const isCurrent = currentIdx === i;
@@ -205,7 +205,7 @@ export default function QuestionBuilder({
 
       {/* Question Text Input Header with [+ Add Question] Auto-Fill Button positioned ABOVE (Top Right) */}
       <div className="mb-4">
-        <div className="d-flex justify-content-between align-items-center mb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
           <label className="text-white fw-bold fs-5 mb-0 font-heading">
             Question Text <span className="text-danger">*</span>
           </label>
@@ -236,7 +236,7 @@ export default function QuestionBuilder({
 
       {/* 4 Options & Correct Answer Selector */}
       <div className="mb-4">
-        <div className="d-flex justify-content-between align-items-center mb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
           <label className="text-white fw-bold mb-0 font-heading fs-6">
             Options & Correct Answer <span className="text-danger">*</span>
           </label>
@@ -283,7 +283,7 @@ export default function QuestionBuilder({
       </div>
 
       {/* Navigation Footer - Clean Previous / Save & Next */}
-      <div className="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-secondary border-opacity-25">
+      <div className="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-secondary border-opacity-25 flex-wrap">
         <button
           type="button"
           className="btn-social-secondary py-2 px-4"
@@ -297,7 +297,7 @@ export default function QuestionBuilder({
           <span>Previous</span>
         </button>
 
-        <div className="d-flex align-items-center gap-2">
+        <div className="d-flex align-items-center gap-2 flex-wrap">
           {/* Save & Next / Preview Button */}
           {allCompleted ? (
             <button

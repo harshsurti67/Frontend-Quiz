@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-dark text-white p-3">
-      <div className="glass-panel p-4 p-md-5 max-w-md w-100" style={{ maxWidth: '440px' }}>
+      <div className="glass-panel p-3 p-sm-4 p-md-5 w-100" style={{ maxWidth: '440px' }}>
         <div className="text-center mb-4">
           <div className="d-inline-flex align-items-center gap-2 mb-2">
             <span className="brand-logo fs-2">

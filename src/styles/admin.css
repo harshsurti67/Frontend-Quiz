@@ -481,6 +481,11 @@ body.admin-page #root {
     padding: 10px 14px;
     font-size: 0.9rem;
   }
+
+  /* Mobile search bar full width */
+  .admin-search-bar {
+    max-width: 100% !important;
+  }
 }
 
 @media (max-width: 576px) {
@@ -503,5 +508,11 @@ body.admin-page #root {
   .admin-table th,
   .admin-table td {
     padding: 10px 12px;
+  }
+
+  /* Hide less important columns on very small screens */
+  .admin-table th:nth-child(n+4),
+  .admin-table td:nth-child(n+4) {
+    display: none;
   }
 }

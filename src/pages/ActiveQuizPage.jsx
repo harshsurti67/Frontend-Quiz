@@ -135,9 +135,9 @@ export default function ActiveQuizPage() {
   }
 
   return (
-    <Container className="py-4 py-md-5">
+    <Container className="py-3 py-md-5">
       <Row className="justify-content-center">
-        <Col md={9} lg={7}>
+        <Col xs={12} sm={10} md={9} lg={7}>
           {/* Progress Bar (RULE 1: Exactly 10 questions) */}
           <ProgressBar
             current={currentIndex + 1}

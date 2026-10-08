@@ -14,8 +14,8 @@ export default function QuestionCard({
   if (!question) return null;
 
   return (
-    <div className="glass-panel p-4 p-md-5">
-      <div className="d-flex align-items-center justify-content-between mb-3">
+    <div className="glass-panel p-3 p-sm-4 p-md-5">
+      <div className="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
         <span className="glass-pill">
           Question {questionNumber} of {totalQuestions}
         </span>
@@ -24,7 +24,7 @@ export default function QuestionCard({
         </span>
       </div>
 
-      <h2 className="fs-4 fw-bold text-white mb-4 lh-sm">
+      <h2 className="fs-4 fs-sm-5 fw-bold text-white mb-4 lh-sm">
         {question.text}
       </h2>
 
