@@ -228,7 +228,7 @@ export default function CreateQuizPage() {
                     Choose Your Character <span className="text-danger">*</span>
                   </label>
                   <div className="d-flex flex-wrap justify-content-center gap-3 p-3 glass-panel bg-black bg-opacity-30">
-                    {['cat', 'dog', 'panda', 'rabbit', 'fox', 'bear', 'lion', 'koala'].map((animal) => (
+                    {['cat', 'dog', 'panda', 'fox', 'lion'].map((animal) => (
                       <div
                         key={animal}
                         className="text-center p-2 rounded-3 cursor-pointer"

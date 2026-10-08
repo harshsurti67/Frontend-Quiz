@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import AnimatedAvatar from '../components/AnimatedAvatar';
+import AnimalCharacter from '../components/AnimalCharacter';
 
 export default function LandingPage() {
 
@@ -12,9 +12,9 @@ export default function LandingPage() {
         <Container className="py-md-4">
           <Row className="justify-content-center">
             <Col lg={9} xl={8}>
-              {/* Animated Mascot Hero Header */}
+              {/* Animal Character Hero Header */}
               <div className="mb-4">
-                <AnimatedAvatar avatarId="cool_boy" size="xl" state="waving" />
+                <AnimalCharacter animal="cat" expression="happy" size="xl" />
               </div>
 
               <h1 className="display-4 display-md-3 fw-bold text-white mb-3 font-heading lh-sm">
@@ -78,11 +78,11 @@ export default function LandingPage() {
             <Col md={4}>
               <div className="glass-panel p-4 h-100 text-center">
                 <div className="mb-3">
-                  <AnimatedAvatar avatarId="cool_boy" size="md" state="idle" />
+                  <AnimalCharacter animal="cat" expression="idle" size="md" />
                 </div>
                 <h3 className="fs-5 fw-bold text-white mb-2">1. Prem Creates His Quiz</h3>
                 <p className="text-white-50 small mb-0">
-                  Prem picks his avatar, configures 10 questions about himself, previews them, and publishes his private quiz.
+                  Prem picks his character, configures 10 questions about himself, previews them, and publishes his private quiz.
                 </p>
               </div>
             </Col>
@@ -98,7 +98,7 @@ export default function LandingPage() {
             <Col md={4}>
               <div className="glass-panel p-4 h-100 text-center">
                 <div className="mb-3">
-                  <AnimatedAvatar avatarId="cute_boy" size="md" state="celebrating" />
+                  <AnimalCharacter animal="dog" expression="excited" size="md" />
                 </div>
                 <h3 className="fs-5 fw-bold text-white mb-2">3. Harsh Scores 8/10</h3>
                 <p className="text-white-50 small mb-0">

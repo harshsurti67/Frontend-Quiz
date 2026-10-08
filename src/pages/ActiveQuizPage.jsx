@@ -16,7 +16,7 @@ export default function ActiveQuizPage() {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({}); // { [questionId]: optionId }
-  const [expression, setExpression] = useState('thinking');
+  const [expression, setExpression] = useState('idle');
 
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -57,7 +57,7 @@ export default function ActiveQuizPage() {
 
         setSelectedAnswers(existingAnswers);
         setCurrentIndex(firstUnansweredIdx);
-        setExpression('thinking');
+        setExpression('idle');
       } catch (err) {
         setError(err.message || 'Unable to load quiz session.');
       } finally {
@@ -99,7 +99,7 @@ export default function ActiveQuizPage() {
 
     if (!isLastQuestion) {
       setCurrentIndex((prev) => prev + 1);
-      setExpression('thinking');
+      setExpression('idle');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Finalize and submit quiz

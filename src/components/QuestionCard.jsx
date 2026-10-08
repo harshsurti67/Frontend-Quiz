@@ -40,7 +40,7 @@ export default function QuestionCard({
             onSelect={(optionId) => {
               onSelectOption(optionId);
               if (onExpressionChange) {
-                onExpressionChange('thinking');
+                onExpressionChange('happy');
               }
             }}
             disabled={isSubmitting}
