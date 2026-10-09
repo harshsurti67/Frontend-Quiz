@@ -81,6 +81,19 @@ export const quizApi = {
   getUserFollowers: (userId) => api.get(`/users/${userId}/followers/`),
   getUserFollowing: (userId) => api.get(`/users/${userId}/following/`),
   getMyFollowing: () => api.get('/users/me/following/'),
+
+  // Friend Requests
+  sendFriendRequest: (userId) => api.post(`/friend-requests/send/${userId}/`),
+  respondFriendRequest: (requestId, action) => api.post(`/friend-requests/${requestId}/respond/`, { action }),
+  cancelFriendRequest: (requestId) => api.delete(`/friend-requests/${requestId}/`),
+  getMyFriendRequests: () => api.get('/friend-requests/me/'),
+
+  // Messaging
+  getConversations: () => api.get('/conversations/'),
+  getConversation: (conversationId) => api.get(`/conversations/${conversationId}/`),
+  createConversation: (userId) => api.post('/conversations/create/', { user_id: userId }),
+  sendMessage: (conversationId, text) => api.post(`/conversations/${conversationId}/messages/`, { text }),
+  getUnreadCount: () => api.get('/messages/unread-count/'),
 };
 
 export const adminApi = {

@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import { Container, Badge } from 'react-bootstrap';
 import { getAuthUser, logoutUser } from '../utils/auth';
+import { quizApi } from '../services/api';
 import ProfileDropdown from './ProfileDropdown';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const user = getAuthUser();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      loadUnreadCount();
+      // Poll for unread count every 30 seconds
+      const interval = setInterval(loadUnreadCount, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [user]);
+
+  const loadUnreadCount = async () => {
+    try {
+      const res = await quizApi.getUnreadCount();
+      setUnreadCount(res.data.unread_count);
+    } catch (err) {
+      console.error('Failed to load unread count:', err);
+    }
+  };
 
   const handleLogout = () => {
     logoutUser();
@@ -34,6 +54,19 @@ export default function Navbar() {
               <Link to="/find-friends" className="text-white-50 text-decoration-none fw-semibold">
                 <i className="bi bi-search me-1"></i>
                 Find Friends
+              </Link>
+              <Link to="/messages" className="text-white-50 text-decoration-none fw-semibold position-relative">
+                <i className="bi bi-chat-dots-fill me-1"></i>
+                Messages
+                {unreadCount > 0 && (
+                  <Badge
+                    bg="danger"
+                    className="position-absolute top-0 start-100 translate-middle rounded-pill"
+                    style={{ transform: 'translate(-50%, -50%)' }}
+                  >
+                    {unreadCount}
+                  </Badge>
+                )}
               </Link>
               <Link to="/dashboard" className="text-white-50 text-decoration-none fw-semibold">
                 <i className="bi bi-bar-chart-fill me-1"></i>

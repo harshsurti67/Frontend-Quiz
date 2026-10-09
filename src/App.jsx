@@ -12,6 +12,8 @@ import ResultPage from './pages/ResultPage';
 import DashboardPage from './pages/DashboardPage';
 import FindFriendsPage from './pages/FindFriendsPage';
 import UserFollowListPage from './pages/UserFollowListPage';
+import MessagesPage from './pages/MessagesPage';
+import ChatPage from './pages/ChatPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AdminLayout from './admin/AdminLayout';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
@@ -74,6 +76,8 @@ function AppContent() {
           <Route path="/create" element={<CreateQuizPage />} />
           <Route path="/find-friends" element={<FindFriendsPage />} />
           <Route path="/users/:userId/:type" element={<UserFollowListPage />} />
+          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/messages/:conversationId" element={<ChatPage />} />
           <Route path="/q/:publicId" element={<PublicQuizPage />} />
           <Route path="/q/:publicId/start" element={<PublicQuizPage />} />
           <Route path="/q/:publicId/quiz/:attemptId" element={<ActiveQuizPage />} />
