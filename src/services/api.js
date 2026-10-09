@@ -73,6 +73,14 @@ export const quizApi = {
   submitAnswer: (attemptId, data) => api.post(`/attempts/${attemptId}/answers/`, data),
   finalizeAttempt: (attemptId) => api.post(`/attempts/${attemptId}/submit/`),
   getAttemptResult: (attemptId) => api.get(`/attempts/${attemptId}/result/`),
+
+  // Follow System
+  searchUsers: (query) => api.get('/users/search/', { params: { q: query } }),
+  followUser: (userId) => api.post(`/users/${userId}/follow/`),
+  unfollowUser: (userId) => api.delete(`/users/${userId}/follow/`),
+  getUserFollowers: (userId) => api.get(`/users/${userId}/followers/`),
+  getUserFollowing: (userId) => api.get(`/users/${userId}/following/`),
+  getMyFollowing: () => api.get('/users/me/following/'),
 };
 
 export const adminApi = {

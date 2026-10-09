@@ -31,6 +31,10 @@ export default function Navbar() {
 
           {user ? (
             <>
+              <Link to="/find-friends" className="text-white-50 text-decoration-none fw-semibold">
+                <i className="bi bi-search me-1"></i>
+                Find Friends
+              </Link>
               <Link to="/dashboard" className="text-white-50 text-decoration-none fw-semibold">
                 <i className="bi bi-bar-chart-fill me-1"></i>
                 Dashboard
