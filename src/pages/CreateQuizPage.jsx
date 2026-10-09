@@ -1,36 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { quizApi } from '../services/api';
+import { getAuthToken, getAuthUser } from '../utils/auth';
 import AnimalCharacter from '../components/AnimalCharacter';
 import QuestionBuilder from '../components/QuestionBuilder';
 import QuestionPreviewList from '../components/QuestionPreviewList';
 import ShareButton from '../components/ShareButton';
+import LoginModal from '../components/LoginModal';
 
-const INITIAL_10_QUESTIONS = Array.from({ length: 10 }).map((_, idx) => ({
-  order: idx + 1,
-  text: '',
-  options: [
-    { text: '', is_correct: true, order: 0 },
-    { text: '', is_correct: false, order: 1 },
-    { text: '', is_correct: false, order: 2 },
-    { text: '', is_correct: false, order: 3 },
-  ],
-}));
+const createInitialQuestions = (count) => {
+  return Array.from({ length: count }).map((_, idx) => ({
+    order: idx + 1,
+    text: '',
+    options: [
+      { text: '', is_correct: true, order: 0 },
+      { text: '', is_correct: false, order: 1 },
+      { text: '', is_correct: false, order: 2 },
+      { text: '', is_correct: false, order: 3 },
+    ],
+  }));
+};
 
 export default function CreateQuizPage() {
-  const [step, setStep] = useState(1); // 1: Info & Avatar, 2: 10 Questions, 3: Preview, 4: Published Share Screen
+  const [step, setStep] = useState(1); // 1: Info & Avatar, 2: Questions, 3: Preview, 4: Published Share Screen
 
   const [creatorName, setCreatorName] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [avatarId, setAvatarId] = useState('cat');
+  const [questionCount, setQuestionCount] = useState(10); // 5 or 10
 
-  const [questions, setQuestions] = useState(INITIAL_10_QUESTIONS);
+  const [questions, setQuestions] = useState(createInitialQuestions(10));
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [publishedQuiz, setPublishedQuiz] = useState(null);
+
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = getAuthToken();
+    const user = getAuthUser();
+    setIsAuthenticated(!!token && !!user);
+  }, []);
+
+  const handleProceedToBuilder = (e) => {
+    e.preventDefault();
+    setError('');
+
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
+    if (!creatorName.trim()) {
+      setError('Please enter your name as creator.');
+      return;
+    }
+    setStep(2);
+  };
+
+  const handleLoginSuccess = (user) => {
+    setIsAuthenticated(true);
+    setCreatorName(user.name || user.username || '');
+  };
+
+  const handleQuestionCountChange = (count) => {
+    setQuestionCount(count);
+    setQuestions(createInitialQuestions(count));
+  };
 
   const handleCreatorNameChange = (e) => {
     const val = e.target.value;
@@ -46,17 +86,6 @@ export default function CreateQuizPage() {
     setQuestions(newQs);
   };
 
-  const handleProceedToBuilder = (e) => {
-    e.preventDefault();
-    setError('');
-
-    if (!creatorName.trim()) {
-      setError('Please enter your name as creator.');
-      return;
-    }
-    setStep(2);
-  };
-
   const handleProceedToPreview = () => {
     setStep(3);
   };
@@ -66,8 +95,8 @@ export default function CreateQuizPage() {
     setLoading(true);
 
     try {
-      // Validate all 10 questions before submitting
-      for (let i = 0; i < 10; i++) {
+      // Validate all questions before submitting
+      for (let i = 0; i < questionCount; i++) {
         const q = questions[i];
         if (!q || !q.text.trim()) {
           throw new Error(`Question ${i + 1} text is empty.`);
@@ -83,7 +112,7 @@ export default function CreateQuizPage() {
       const payload = {
         creator_name: creatorName.trim(),
         title: title.trim() || `How Well Do You Know ${creatorName.trim()}? 👀`,
-        description: description.trim() || `Take this 10-question quiz to test how well you really know ${creatorName.trim()}!`,
+        description: description.trim() || `Take this ${questionCount}-question quiz to test how well you really know ${creatorName.trim()}!`,
         avatar_id: avatarId,
         questions: questions.map((q, idx) => ({
           order: idx + 1,
@@ -174,14 +203,15 @@ export default function CreateQuizPage() {
   }
 
   return (
-    <Container className="py-4 py-md-5">
-      <Row className="justify-content-center">
-        <Col xs={12} sm={10} md={10} lg={8}>
-          {error && (
-            <Alert variant="danger" className="bg-danger bg-opacity-25 text-white border-danger mb-4">
-              {error}
-            </Alert>
-          )}
+    <>
+      <Container className="py-4 py-md-5">
+        <Row className="justify-content-center">
+          <Col xs={12} sm={10} md={10} lg={8}>
+            {error && (
+              <Alert variant="danger" className="bg-danger bg-opacity-25 text-white border-danger mb-4">
+                {error}
+              </Alert>
+            )}
 
           {/* STEP 1: Quiz Info & Mascot Avatar Selection */}
           {step === 1 && (
@@ -269,26 +299,65 @@ export default function CreateQuizPage() {
                   />
                 </div>
 
+                {/* Question Count Selection */}
+                <div className="mb-4">
+                  <label className="form-label text-white fw-bold mb-2">
+                    Number of Questions <span className="text-danger">*</span>
+                  </label>
+                  <div className="d-flex gap-3">
+                    <button
+                      type="button"
+                      className={`flex-grow-1 py-3 rounded-3 border-2 fw-bold ${
+                        questionCount === 5
+                          ? 'btn-social-primary'
+                          : 'btn-social-secondary'
+                      }`}
+                      onClick={() => handleQuestionCountChange(5)}
+                    >
+                      <span className="fs-4">5</span>
+                      <span className="small d-block mt-1">Quick Quiz</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`flex-grow-1 py-3 rounded-3 border-2 fw-bold ${
+                        questionCount === 10
+                          ? 'btn-social-primary'
+                          : 'btn-social-secondary'
+                      }`}
+                      onClick={() => handleQuestionCountChange(10)}
+                    >
+                      <span className="fs-4">10</span>
+                      <span className="small d-block mt-1">Full Quiz</span>
+                    </button>
+                  </div>
+                  <div className="text-white-50 small mt-2">
+                    {questionCount === 5
+                      ? 'Quick quiz - perfect for casual friends'
+                      : 'Full quiz - comprehensive personality test'}
+                  </div>
+                </div>
+
                 <button
                   type="submit"
                   className="btn-social-primary w-100 py-3 fs-5"
                   disabled={!creatorName.trim()}
                   id="proceed-to-questions-btn"
                 >
-                  <span>Continue to 10 Questions Builder</span>
+                  <span>Continue to {questionCount} Questions Builder</span>
                   <i className="bi bi-arrow-right fs-4"></i>
                 </button>
               </Form>
             </div>
           )}
 
-          {/* STEP 2: 10 Questions Builder */}
+          {/* STEP 2: Questions Builder */}
           {step === 2 && (
             <QuestionBuilder
               questions={questions}
               onUpdateQuestion={handleUpdateQuestion}
               onProceedToPreview={handleProceedToPreview}
               creatorName={creatorName}
+              questionCount={questionCount}
             />
           )}
 
@@ -309,5 +378,12 @@ export default function CreateQuizPage() {
         </Col>
       </Row>
     </Container>
+
+    <LoginModal
+      show={showLoginModal}
+      onHide={() => setShowLoginModal(false)}
+      onLoginSuccess={handleLoginSuccess}
+    />
+    </>
   );
 }

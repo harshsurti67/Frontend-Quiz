@@ -4590,16 +4590,11 @@ const GENERATED_PERSONAL_QUESTIONS_BANK = [
   },
 ];
 
-export default function QuestionBuilder({
-  questions = [],
-  onUpdateQuestion,
-  onProceedToPreview,
-  creatorName = 'Prem',
-}) {
+export default function QuestionBuilder({ questions, onUpdateQuestion, onProceedToPreview, creatorName, questionCount = 10 }) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [validationError, setValidationError] = useState('');
 
-  const currentQ = questions[currentIdx] || {
+  const currentQ = questions[currentIdx] || { 
     order: currentIdx + 1,
     text: '',
     options: [
@@ -4672,10 +4667,10 @@ export default function QuestionBuilder({
       return;
     }
 
-    if (currentIdx < 9) {
+    if (currentIdx < questionCount - 1) {
       setCurrentIdx((prev) => prev + 1);
     } else {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < questionCount; i++) {
         const err = validateQuestionIdx(i);
         if (err) {
           setValidationError(err);
@@ -4695,24 +4690,24 @@ export default function QuestionBuilder({
   };
 
   const completedCount = questions.filter((_, i) => isQuestionComplete(i)).length;
-  const allCompleted = questions.length === 10 && completedCount === 10;
+  const allCompleted = questions.length === questionCount && completedCount === questionCount;
 
   return (
     <div className="glass-panel p-3 p-sm-4 p-md-5">
-      {/* Header & Stepper (1 to 10) */}
+      {/* Header & Stepper */}
       <div className="mb-4">
         <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
           <span className="text-white-50 small fw-bold text-uppercase" style={{ letterSpacing: '0.06em' }}>
-            QUESTION {currentIdx + 1} OF 10
+            QUESTION {currentIdx + 1} OF {questionCount}
           </span>
           <span className="badge bg-secondary bg-opacity-25 text-white-50 fs-6 px-3 py-1">
-            {completedCount}/10 Completed
+            {completedCount}/{questionCount} Completed
           </span>
         </div>
 
-        {/* Stepper Buttons: 1 ✓  2 ✓  3 ✓ ... 10 */}
+        {/* Stepper Buttons: 1 ✓  2 ✓  3 ✓ ... */}
         <div className="d-flex gap-2 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
-          {Array.from({ length: 10 }).map((_, i) => {
+          {Array.from({ length: questionCount }).map((_, i) => {
             const isCompleted = isQuestionComplete(i);
             const isCurrent = currentIdx === i;
             return (
