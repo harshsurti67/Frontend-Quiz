@@ -98,10 +98,19 @@ export default function CreateQuizPage() {
       };
 
       const res = await quizApi.createQuiz(payload);
-      setPublishedQuiz(res.data);
+      const quizData = res.data;
+
+      // Verify the quiz was actually published
+      if (quizData.status !== 'published') {
+        throw new Error('Quiz was created but not published. Please try publishing again.');
+      }
+
+      setPublishedQuiz(quizData);
       setStep(4);
     } catch (err) {
-      setError(err.message || 'Failed to publish quiz.');
+      console.error('Quiz publish error:', err);
+      const errorMsg = err.response?.data?.error || err.message || 'Failed to publish quiz. Please check all questions have text, 4 options, and 1 correct answer selected.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
